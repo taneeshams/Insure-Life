@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle Insurance Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login/Signup Modal -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h2 id="authTitle">Welcome to InsureLife</h2>
+                <p id="authSubtitle">Sign in to get personalized insurance recommendations</p>
+                <button class="close-auth" onclick="closeAuthModal()">&times;</button>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-btn">Sign In</button>
+                <div class="auth-links">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+            </form>
+            
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>InsureLife</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-pattern"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Trusted by 50,000+ customers</span>
+                </div>
+                <h1>Find Your Perfect Insurance Match</h1>
+                <p>Get personalized insurance recommendations based on your lifestyle, goals, and needs. Our AI-powered advisor helps you make informed decisions in minutes.</p>
+                <div class="hero-cta">
+                    <button class="cta-button primary" onclick="startAssessment()">
+                        <i class="fas fa-play"></i>
+                        Start Free Assessment
+                    </button>
+                    <button class="cta-button secondary" onclick="scrollToFeatures()">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">5 min</span>
+                        <span class="stat-label">Assessment</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Simple Steps</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Free</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-illustration">
+                    <div class="illustration-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Life Insurance</h4>
+                            <p>Protect your loved ones</p>
+                        </div>
+                    </div>
+                    <div class="illustration-card">
+                        <div class="card-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Health Insurance</h4>
+                            <p>Comprehensive coverage</p>
+                        </div>
+                    </div>
+                    <div class="illustration-card">
+                        <div class="card-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Property Insurance</h4>
+                            <p>Secure your assets</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifestyle Assessment Section -->
+    <section class="assessment" id="assessment">
+        <div class="container">
+            <div class="section-header">
+                <h2>Lifestyle Assessment</h2>
+                <p>Help us understand your lifestyle to provide the best insurance recommendations</p>
+            </div>
+            
+            <div class="assessment-form">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="step-indicator active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Personal Info</span>
+                        </div>
+                        <div class="step-indicator" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Lifestyle</span>
+                        </div>
+                        <div class="step-indicator" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-label">Goals</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-step active" id="step1">
+                    <h3>Personal Information</h3>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" id="age" placeholder="Enter your age">
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Income</label>
+                        <select id="income">
+                            <option value="">Select income range</option>
+                            <option value="0-30k">$0 - $30,000</option>
+                            <option value="30k-50k">$30,000 - $50,000</option>
+                            <option value="50k-75k">$50,000 - $75,000</option>
+                            <option value="75k-100k">$75,000 - $100,000</option>
+                            <option value="100k+">$100,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Marital Status</label>
+                        <select id="marital">
+                            <option value="">Select status</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="widowed">Widowed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step2">
+                    <h3>Lifestyle & Health</h3>
+                    <div class="form-group">
+                        <label>Do you smoke?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="smoking" value="no"> No</label>
+                            <label><input type="radio" name="smoking" value="yes"> Yes</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Exercise Frequency</label>
+                        <select id="exercise">
+                            <option value="">Select frequency</option>
+                            <option value="none">No regular exercise</option>
+                            <option value="light">Light exercise (1-2 times/week)</option>
+                            <option value="moderate">Moderate exercise (3-4 times/week)</option>
+                            <option value="intense">Intense exercise (5+ times/week)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Occupation Risk Level</label>
+                        <select id="occupation">
+                            <option value="">Select risk level</option>
+                            <option value="low">Low risk (office work)</option>
+                            <option value="medium">Medium risk (sales, teaching)</option>
+                            <option value="high">High risk (construction, healthcare)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step3">
+                    <h3>Financial Goals</h3>
+                    <div class="form-group">
+                        <label>Primary Insurance Need</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="needs" value="life"> Life Insurance</label>
+                            <label><input type="checkbox" name="needs" value="health"> Health Insurance</label>
+                            <label><input type="checkbox" name="needs" value="disability"> Disability Insurance</label>
+                            <label><input type="checkbox" name="needs" value="property"> Property Insurance</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Coverage Amount Preference</label>
+                        <select id="coverage">
+                            <option value="">Select preference</option>
+                            <option value="basic">Basic coverage</option>
+                            <option value="standard">Standard coverage</option>
+                            <option value="comprehensive">Comprehensive coverage</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                        Previous
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">
+                        Next
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitAssessment()" style="display: none;">
+                        <i class="fas fa-check"></i>
+                        Get Recommendations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results" id="results" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Personalized Insurance Recommendations</h2>
+                <p>Based on your assessment, here are the best insurance options tailored to your needs</p>
+            </div>
+            
+            <div class="results-summary">
+                <div class="summary-card">
+                    <h3>Assessment Summary</h3>
+                    <div class="summary-stats" id="summaryStats">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-grid" id="resultsGrid">
+                <!-- Dynamic recommendations will be inserted here -->
+            </div>
+
+            <!-- Real Insurance Providers Section -->
+            <div class="insurance-providers">
+                <h3>Top Insurance Providers</h3>
+                <div class="providers-grid">
+                    <div class="provider-card">
+                        <div class="provider-logo">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>State Farm</span>
+                        </div>
+                        <div class="provider-info">
+                            <h4>State Farm</h4>
+                            <p>Comprehensive coverage with excellent customer service</p>
+                            <div class="provider-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.8/5 (2,500+ reviews)</span>
+                            </div>
+                        </div>
+                        <div class="provider-actions">
+                            <button class="btn btn-primary" onclick="getQuote('statefarm')">Get Quote</button>
+                            <button class="btn btn-secondary" onclick="learnMore('statefarm')">Learn More</button>
+                        </div>
+                    </div>
+
+                    <div class="provider-card">
+                        <div class="provider-logo">
+                            <i class="fas fa-home"></i>
+                            <span>Allstate</span>
+                        </div>
+                        <div class="provider-info">
+                            <h4>Allstate</h4>
+                            <p>Innovative coverage options with digital tools</p>
+                            <div class="provider-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-text">4.6/5 (1,800+ reviews)</span>
+                            </div>
+                        </div>
+                        <div class="provider-actions">
+                            <button class="btn btn-primary" onclick="getQuote('allstate')">Get Quote</button>
+                            <button class="btn btn-secondary" onclick="learnMore('allstate')">Learn More</button>
+                        </div>
+                    </div>
+
+                    <div class="provider-card">
+                        <div class="provider-logo">
+                            <i class="fas fa-heart"></i>
+                            <span>Progressive</span>
+                        </div>
+                        <div class="provider-info">
+                            <h4>Progressive</h4>
+                            <p>Competitive rates with flexible payment options</p>
+                            <div class="provider-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-text">4.5/5 (3,200+ reviews)</span>
+                            </div>
+                        </div>
+                        <div class="provider-actions">
+                            <button class="btn btn-primary" onclick="getQuote('progressive')">Get Quote</button>
+                            <button class="btn btn-secondary" onclick="learnMore('progressive')">Learn More</button>
+                        </div>
+                    </div>
+
+                    <div class="provider-card">
+                        <div class="provider-logo">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Geico</span>
+                        </div>
+                        <div class="provider-info">
+                            <h4>Geico</h4>
+                            <p>Low-cost options with 24/7 customer support</p>
+                            <div class="provider-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.7/5 (4,100+ reviews)</span>
+                            </div>
+                        </div>
+                        <div class="provider-actions">
+                            <button class="btn btn-primary" onclick="getQuote('geico')">Get Quote</button>
+                            <button class="btn btn-secondary" onclick="learnMore('geico')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Resources -->
+            <div class="additional-resources">
+                <h3>Additional Resources</h3>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <i class="fas fa-calculator"></i>
+                        <h4>Insurance Calculator</h4>
+                        <p>Calculate your exact coverage needs and premium estimates</p>
+                        <button class="btn btn-secondary" onclick="openCalculator()">Use Calculator</button>
+                    </div>
+                    <div class="resource-card">
+                        <i class="fas fa-phone"></i>
+                        <h4>Expert Consultation</h4>
+                        <p>Speak with a licensed insurance agent for personalized advice</p>
+                        <button class="btn btn-secondary" onclick="scheduleConsultation()">Schedule Call</button>
+                    </div>
+                    <div class="resource-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>Coverage Guide</h4>
+                        <p>Download our comprehensive insurance coverage guide</p>
+                        <button class="btn btn-secondary" onclick="downloadGuide()">Download PDF</button>
+                    </div>
+                    <div class="resource-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <h4>Compare Providers</h4>
+                        <p>Compare our recommendations with real insurance providers</p>
+                        <button class="btn btn-secondary" onclick="showComparisonTable()">View Comparison</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose Our Insurance Advisor?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Advanced algorithms analyze your lifestyle and financial situation to provide personalized recommendations.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Quick & Easy</h3>
+                    <p>Complete your assessment in just 5 minutes and get instant recommendations tailored to your needs.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-check"></i>
+                    <h3>Trusted Partners</h3>
+                    <p>We work with top-rated insurance providers to ensure you get the best coverage at competitive rates.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Expert Support</h3>
+                    <p>Our licensed insurance experts are available to help you understand your options and make informed decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>InsureLife</h3>
+                    <p>Your trusted partner in finding the right insurance coverage for your lifestyle and needs.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> 1-800-INSURANCE</p>
+                    <p><i class="fas fa-envelope"></i> info@insurelife.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 InsureLife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 24/7 AI Chatbot -->
+    <div id="chatbot" class="chatbot">
+        <div class="chatbot-header" onclick="toggleChatbot()">
+            <div class="chatbot-info">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+                <span class="status-indicator online">24/7 Online</span>
+            </div>
+            <button class="chatbot-toggle">
+                <i class="fas fa-comments"></i>
+            </button>
+        </div>
+        
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm your AI insurance assistant. I'm here 24/7 to help answer any questions about insurance, coverage options, or our services. How can I assist you today?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Ask me anything about insurance..." maxlength="500">
+                <button id="sendMessage" onclick="sendChatMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-suggestions">
+                <button class="suggestion-btn" onclick="askSuggestion('What types of insurance do you offer?')">Types of Insurance</button>
+                <button class="suggestion-btn" onclick="askSuggestion('How do I calculate my coverage needs?')">Coverage Calculator</button>
+                <button class="suggestion-btn" onclick="askSuggestion('What are the benefits of life insurance?')">Life Insurance Benefits</button>
+                <button class="suggestion-btn" onclick="askSuggestion('How can I save on insurance premiums?')">Save on Premiums</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Table Section -->
+    <section class="comparison-section" id="comparison" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Insurance Comparison Table</h2>
+                <p>Compare our recommendations with real insurance providers and their actual rates</p>
+            </div>
+            
+            <div class="comparison-filters">
+                <select id="insuranceTypeFilter" onchange="filterComparisonTable()">
+                    <option value="all">All Insurance Types</option>
+                    <option value="life">Life Insurance</option>
+                    <option value="health">Health Insurance</option>
+                    <option value="auto">Auto Insurance</option>
+                    <option value="property">Property Insurance</option>
+                </select>
+                <select id="providerFilter" onchange="filterComparisonTable()">
+                    <option value="all">All Providers</option>
+                    <option value="statefarm">State Farm</option>
+                    <option value="allstate">Allstate</option>
+                    <option value="progressive">Progressive</option>
+                    <option value="geico">Geico</option>
+                    <option value="bcbs">Blue Cross Blue Shield</option>
+                </select>
+            </div>
+            
+            <div class="comparison-table-container">
+                <table class="comparison-table" id="comparisonTable">
+                    <thead>
+                        <tr>
+                            <th>Provider</th>
+                            <th>Insurance Type</th>
+                            <th>Coverage Amount</th>
+                            <th>Monthly Premium</th>
+                            <th>Deductible</th>
+                            <th>Rating</th>
+                            <th>Features</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparisonTableBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="comparison-summary">
+                <h3>Comparison Summary</h3>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <h4>Best Value</h4>
+                        <p id="bestValueProvider">Loading...</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Lowest Premium</h4>
+                        <p id="lowestPremiumProvider">Loading...</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Highest Rated</h4>
+                        <p id="highestRatedProvider">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
